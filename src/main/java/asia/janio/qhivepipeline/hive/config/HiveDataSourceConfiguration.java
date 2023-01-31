@@ -20,7 +20,7 @@ public class HiveDataSourceConfiguration {
     @Value("${hive.config.password}")
     private String password;
 
-    @Value("${hive.config.driverUrl")
+    @Value("${hive.config.driverUrl}")
     private String driverUrl;
 
     public DataSource getHiveDataSource() throws IOException {

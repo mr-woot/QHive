@@ -20,13 +20,13 @@ public class HiveDataSourceConfiguration {
     @Value("${hive.config.password}")
     private String password;
 
-    @Value("${hive.config.driver-class-name")
-    private String driverClassName;
+    @Value("${hive.config.driverUrl")
+    private String driverUrl;
 
     public DataSource getHiveDataSource() throws IOException {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setUrl(this.hiveConnectionURL);
-        dataSource.setDriverClassName(driverClassName);
+        dataSource.setDriverClassName(driverUrl);
         dataSource.setUsername(this.userName);
         dataSource.setPassword(this.password);
         return dataSource;

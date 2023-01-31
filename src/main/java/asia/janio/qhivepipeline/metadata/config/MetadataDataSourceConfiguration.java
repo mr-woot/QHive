@@ -16,8 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @EnableTransactionManagement
@@ -51,14 +49,10 @@ public class MetadataDataSourceConfiguration {
     public LocalContainerEntityManagerFactoryBean metadataEntityManagerFactory(
             EntityManagerFactoryBuilder metadataEntityManagerFactoryBuilder,
             @Qualifier("metadataDataSource") DataSource metadataDataSource) {
-        Map<String, String> metadataJpaProperties = new HashMap<>();
-        metadataJpaProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        metadataJpaProperties.put("hibernate.hbm2ddl.auto", "update");
         return metadataEntityManagerFactoryBuilder
                 .dataSource(metadataDataSource)
                 .packages("asia.janio.qhivepipeline.metadata")
                 .persistenceUnit("metadataDataSource")
-                .properties(metadataJpaProperties)
                 .build();
     }
 

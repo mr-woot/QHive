@@ -1,36 +1,39 @@
 package asia.janio.qhivepipeline.hive.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.io.IOException;
 
 @Configuration
-@EnableTransactionManagement
-@EnableJpaRepositories(
-        entityManagerFactoryRef = "hiveEntityManagerFactory",
-        transactionManagerRef = "hiveTransactionManager",
-        basePackages = {"asia.janio.qhivepipeline.hive"}
-)
 public class HiveDataSourceConfiguration {
+    @Value("${hive.config.url}")
+    private String hiveConnectionURL;
 
-    @Bean(name = "hiveDataSourceProperties")
-    @ConfigurationProperties("spring.datasource.hive")
-    public DataSourceProperties hiveDataSourceProperties() {
-        return new DataSourceProperties();
+    @Value("${hive.config.username}")
+    private String userName;
+
+    @Value("${hive.config.password}")
+    private String password;
+
+    @Value("${hive.config.driver-class-name")
+    private String driverClassName;
+
+    public DataSource getHiveDataSource() throws IOException {
+        BasicDataSource dataSource = new BasicDataSource();
+        dataSource.setUrl(this.hiveConnectionURL);
+        dataSource.setDriverClassName(driverClassName);
+        dataSource.setUsername(this.userName);
+        dataSource.setPassword(this.password);
+        return dataSource;
     }
 
-    @Bean(name = "hiveDataSource")
-    public DataSource hiveDataSource(
-            @Qualifier("hiveDataSourceProperties") DataSourceProperties hiveDataSourceProperties) {
-        return hiveDataSourceProperties
-                .initializeDataSourceBuilder()
-                .build();
+    @Bean(name = "hiveTemplate")
+    public JdbcTemplate getJDBCTemplate() throws IOException {
+        return new JdbcTemplate(getHiveDataSource());
     }
-
 }

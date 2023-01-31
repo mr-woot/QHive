@@ -2,6 +2,11 @@ server:
   port: 1234
 spring:
   datasource:
+    hive:
+      url: "jdbc:hive2://ip-172-31-0-55.ap-southeast-1.compute.internal:2181,ip-172-31-10-50.ap-southeast-1.compute.internal:2181,ip-172-31-10-79.ap-southeast-1.compute.internal:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2"
+      username: "hive"
+      password: ""
+      driver-class-name: "org.apache.hive.jdbc.HiveDriver"
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
@@ -15,9 +20,3 @@ spring:
     properties:
       hibernate:
         dialect: "org.hibernate.dialect.MySQL5Dialect"
-hive:
-  datasource:
-      url: "jdbc:hive2://ip-172-31-0-55.ap-southeast-1.compute.internal:2181,ip-172-31-10-50.ap-southeast-1.compute.internal:2181,ip-172-31-10-79.ap-southeast-1.compute.internal:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2"
-      username: "hive"
-      password: ""
-      driver-class-name: "org.apache.hive.jdbc.HiveDriver"

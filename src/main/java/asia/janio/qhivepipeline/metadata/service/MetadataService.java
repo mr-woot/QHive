@@ -1,8 +1,8 @@
-package asia.janio.qhivepipeline.service;
+package asia.janio.qhivepipeline.metadata.service;
 
-import asia.janio.qhivepipeline.entity.CreateQueryPayload;
-import asia.janio.qhivepipeline.entity.Metadata;
-import asia.janio.qhivepipeline.repository.MetadataRepository;
+import asia.janio.qhivepipeline.metadata.entity.CreateQueryPayload;
+import asia.janio.qhivepipeline.metadata.entity.Metadata;
+import asia.janio.qhivepipeline.metadata.repository.MetadataRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

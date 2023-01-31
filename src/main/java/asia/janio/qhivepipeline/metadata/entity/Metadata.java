@@ -1,4 +1,4 @@
-package asia.janio.qhivepipeline.entity;
+package asia.janio.qhivepipeline.metadata.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

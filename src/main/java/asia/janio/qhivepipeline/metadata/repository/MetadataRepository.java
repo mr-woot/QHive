@@ -1,6 +1,6 @@
-package asia.janio.qhivepipeline.repository;
+package asia.janio.qhivepipeline.metadata.repository;
 
-import asia.janio.qhivepipeline.entity.Metadata;
+import asia.janio.qhivepipeline.metadata.entity.Metadata;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

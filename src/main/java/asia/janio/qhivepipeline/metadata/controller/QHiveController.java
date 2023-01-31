@@ -1,7 +1,7 @@
-package asia.janio.qhivepipeline.controller;
+package asia.janio.qhivepipeline.metadata.controller;
 
-import asia.janio.qhivepipeline.entity.CreateQueryPayload;
-import asia.janio.qhivepipeline.service.MetadataService;
+import asia.janio.qhivepipeline.metadata.entity.CreateQueryPayload;
+import asia.janio.qhivepipeline.metadata.service.MetadataService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

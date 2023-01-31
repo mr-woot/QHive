@@ -1,4 +1,4 @@
-package asia.janio.qhivepipeline.service;
+package asia.janio.qhivepipeline.hive.service;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;

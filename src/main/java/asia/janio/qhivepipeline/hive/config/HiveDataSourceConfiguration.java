@@ -29,6 +29,10 @@ public class HiveDataSourceConfiguration {
         dataSource.setDriverClassName(driverUrl);
         dataSource.setUsername(this.userName);
         dataSource.setPassword(this.password);
+        dataSource.setValidationQueryTimeout(5);
+        dataSource.setTestOnBorrow(true);
+        dataSource.setInitialSize(3);
+        dataSource.setMaxWait(60000);
         return dataSource;
     }
 

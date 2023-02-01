@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/hive")
+@RestController
 public class HiveController {
     @Autowired
     private HiveServiceImpl hiveService;

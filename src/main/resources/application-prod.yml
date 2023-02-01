@@ -1,5 +1,11 @@
 server:
   port: 1234
+  session.timeout: 3000
+  tomcat.basedir: ./tmp
+  tomcat.background-processor-delay: 30
+  tomcat.max-threads: 250
+  tomcat.uri-encoding: UTF-8
+  contextPath: /
 
 spring:
   datasource:

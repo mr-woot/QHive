@@ -1,18 +1,6 @@
 server:
   port: 1234
 
-hive:
-  config:
-    url: "jdbc:hive2://ip-172-31-0-55.ap-southeast-1.compute.internal:2181,ip-172-31-10-50.ap-southeast-1.compute.internal:2181,ip-172-31-10-79.ap-southeast-1.compute.internal:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2"
-    username: "hive"
-    password: ""
-    driverUrl: org.apache.hive.jdbc.HiveDriver
-    initial-size: <<define as per your load>>
-    validation-query: <<for hive select query>>
-    validation-query-timeout: 3
-    test-on-borrow: true
-    max-wait: 60000
-
 spring:
   datasource:
     hikari:

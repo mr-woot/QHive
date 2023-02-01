@@ -2,15 +2,12 @@ package asia.janio.qhivepipeline.hive.service;
 
 import asia.janio.qhivepipeline.hive.config.HiveConnection;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.sql.*;
 
-@Service
 @Log4j2
 public class HiveService {
-    @PostConstruct
+
     public static void run() {
         System.out.println("Hive Application init");
         Connection conn = HiveConnection.getInstance().getConnection();

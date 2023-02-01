@@ -11,6 +11,26 @@ spring:
         url: "jdbc:mysql://172.31.10.79:3306/qhive"
         username: "qhive"
         password: "qhive@123@"
+    hive:
+      url: "jdbc:hive2://ip-172-31-0-55.ap-southeast-1.compute.internal:2181,ip-172-31-10-50.ap-southeast-1.compute.internal:2181,ip-172-31-10-79.ap-southeast-1.compute.internal:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2"
+      username: "hive"
+      password: ""
+      driver-class-name: "org.apache.hive.jdbc.HiveDriver"
+    common:
+      initialSize: 1
+      minIdle: 1
+      maxIdle: 5
+      maxActive: 50
+      maxWait: 10000
+      timeBetweenEvictionRunsMillis: 10000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+      filters: stat
   jpa:
     hibernate:
       ddl-auto: update

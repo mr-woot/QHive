@@ -1,7 +1,6 @@
 package asia.janio.qhivepipeline.hive.service;
 
 import lombok.extern.log4j.Log4j2;
-import org.apache.hive.jdbc.HiveStatement;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -30,17 +29,7 @@ public class HiveServiceImpl implements HiveService {
 
     @Override
     public Object select(String hql) {
-        Object object = null;
-        try {
-            HiveStatement stmt = (HiveStatement) hiveDruidDataSource.getConnection().createStatement();
-            object = hiveJdbcTemplate.queryForObject(hql, Object.class);
-            for(String log: stmt.getQueryLog()) {
-                System.out.println("Log: " + log);
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return object;
+        return hiveJdbcTemplate.queryForObject(hql, Object.class);;
     }
 
     @Override

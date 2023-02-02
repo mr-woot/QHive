@@ -28,6 +28,7 @@ public class HiveDruidConfiguration {
     @Qualifier("hiveDruidDataSource")
     public DataSource dataSource(){
         DruidDataSource datasource = new DruidDataSource();
+//        BasicDataSource datasource = new BasicDataSource();
 
         // hive properties
         datasource.setUrl(hiveJdbcProperties.getUrl());

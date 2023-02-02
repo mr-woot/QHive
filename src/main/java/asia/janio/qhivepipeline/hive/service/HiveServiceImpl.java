@@ -47,21 +47,17 @@ public class HiveServiceImpl implements HiveService {
     public List<String> listAllTables() {
         List<String> result = new ArrayList<>();
         try {
-            HiveStatement statement = (HiveStatement)hiveDruidDataSource.getConnection().createStatement();
+            Statement statement = hiveDruidDataSource.getConnection().createStatement();
             String sql = "show tables";
             log.info("Running: " + sql);
-            for (String log: statement.getQueryLog()) {
-                System.out.println("Log: " + log);
-            }
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 result.add(resultSet.getString(1));
             }
             return result;
-        } catch (SQLException throwables) {
-            log.error(throwables.getMessage());
+        } catch (SQLException throwable) {
+            log.error(throwable.getMessage());
         }
-
         return Collections.emptyList();
     }
 

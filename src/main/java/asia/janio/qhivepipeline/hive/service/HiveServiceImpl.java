@@ -6,7 +6,6 @@ import org.apache.hive.jdbc.HiveStatement;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,17 +16,11 @@ import java.util.List;
 @Service
 public class HiveServiceImpl implements HiveService {
 
-    private Connection hiveConnection = null;
-
-    public HiveServiceImpl() {
-        this.hiveConnection = HiveConnection.getInstance().getConnection();
-    }
-
     @Override
     public Boolean select(String hql) {
         boolean ex;
         try {
-            HiveStatement st = (HiveStatement) hiveConnection.createStatement();
+            HiveStatement st = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
             ex = st.execute(hql);
             for (String line: st.getQueryLog()) {
                 log.info(line);
@@ -43,7 +36,7 @@ public class HiveServiceImpl implements HiveService {
     public List<String> listAllTables() {
         List<String> result = new ArrayList<>();
         try {
-            HiveStatement statement = (HiveStatement) hiveConnection.createStatement();
+            HiveStatement statement = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
             String sql = "show tables";
             log.info("Running: " + sql);
             ResultSet resultSet = statement.executeQuery(sql);
@@ -64,7 +57,7 @@ public class HiveServiceImpl implements HiveService {
         }
         List<String> result = new ArrayList<>();
         try {
-            HiveStatement statement = (HiveStatement) hiveConnection.createStatement();
+            HiveStatement statement = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
             String sql = "describe " + tableName;
             log.info("Running" + sql);
             ResultSet resultSet = statement.executeQuery(sql);
@@ -85,7 +78,7 @@ public class HiveServiceImpl implements HiveService {
         }
         List<String> result = new ArrayList<>();
         try {
-            HiveStatement statement = (HiveStatement) hiveConnection.createStatement();
+            HiveStatement statement = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
             String sql = "select * from " + tableName;
             log.info("Running" + sql);
             ResultSet resultSet = statement.executeQuery(sql);

@@ -29,7 +29,7 @@ public class HiveServiceImpl implements HiveService {
 
     @Override
     public Object select(String hql) {
-        return hiveJdbcTemplate.queryForObject(hql, Object.class);;
+        return hiveJdbcTemplate.queryForObject(hql, Object.class);
     }
 
     @Override

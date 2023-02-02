@@ -3,6 +3,7 @@ package asia.janio.qhivepipeline.hive.service;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -29,7 +30,12 @@ public class HiveServiceImpl implements HiveService {
 
     @Override
     public Object select(String hql) {
-        return hiveJdbcTemplate.queryForObject(hql, Object.class);
+        return hiveJdbcTemplate.queryForStream(hql, new RowMapper<Object>() {
+            @Override
+            public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return null;
+            }
+        });
     }
 
     @Override
@@ -65,8 +71,8 @@ public class HiveServiceImpl implements HiveService {
                 result.add(resultSet.getString(1));
             }
             return result;
-        } catch (SQLException throwables) {
-            log.error(throwables.getMessage());
+        } catch (SQLException throwable) {
+            log.error(throwable.getMessage());
         }
         return Collections.emptyList();
     }
@@ -94,8 +100,8 @@ public class HiveServiceImpl implements HiveService {
                 result.add(str);
             }
             return result;
-        } catch (SQLException throwables) {
-            log.error(throwables.getMessage());
+        } catch (SQLException throwable) {
+            log.error(throwable.getMessage());
         }
         return Collections.emptyList();
     }

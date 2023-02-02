@@ -1,12 +1,12 @@
 package asia.janio.qhivepipeline.hive.service;
 
 import lombok.extern.log4j.Log4j2;
-import org.apache.hive.jdbc.HiveConnection;
 import org.apache.hive.jdbc.HiveStatement;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,9 +17,9 @@ import java.util.List;
 @Service
 public class HiveServiceImpl implements HiveService {
 
-    private final HiveConnection hiveConnection;
+    private final Connection hiveConnection;
 
-    public HiveServiceImpl(@Qualifier("hiveConnection") HiveConnection hiveConnection) {
+    public HiveServiceImpl(@Qualifier("hiveConnection") Connection hiveConnection) {
         this.hiveConnection = hiveConnection;
     }
 

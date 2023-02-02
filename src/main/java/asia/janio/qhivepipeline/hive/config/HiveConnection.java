@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class HiveConnection {
 
@@ -29,7 +30,23 @@ public class HiveConnection {
     private HiveConnection() {
         try {
             Class.forName("org.apache.hive.jdbc.HiveDriver");
-            connection = DriverManager.getConnection(HIVE_JDBC_URI, HIVE_USER, HIVE_PASSWORD);
+            Properties properties = new Properties();
+            DataSourceCommonProperties commonProperties = new DataSourceCommonProperties();
+            properties.setProperty("initialSize", String.valueOf(commonProperties.getInitialSize()));
+            properties.setProperty("minIdle", String.valueOf(commonProperties.getMinIdle()));
+            properties.setProperty("maxIdle", String.valueOf(commonProperties.getMaxIdle()));
+            properties.setProperty("maxActive", String.valueOf(commonProperties.getMaxActive()));
+            properties.setProperty("maxWait", String.valueOf(commonProperties.getMaxWait()));
+            properties.setProperty("timeBetweenEvictionRunsMillis", String.valueOf(commonProperties.getTimeBetweenEvictionRunsMillis()));
+            properties.setProperty("minEvictableIdleTimeMillis", String.valueOf(commonProperties.getMinEvictableIdleTimeMillis()));
+            properties.setProperty("validationQuery", commonProperties.getValidationQuery());
+            properties.setProperty("testWhileIdle", String.valueOf(commonProperties.isTestWhileIdle()));
+            properties.setProperty("testOnBorrow", String.valueOf(commonProperties.isTestOnBorrow()));
+            properties.setProperty("testOnReturn", String.valueOf(commonProperties.isTestOnReturn()));
+            properties.setProperty("poolPreparedStatements", String.valueOf(commonProperties.isPoolPreparedStatements()));
+            properties.setProperty("maxOpenPreparedStatements", String.valueOf(commonProperties.getMaxOpenPreparedStatements()));
+            properties.setProperty("filters", commonProperties.getFilters());
+            connection = DriverManager.getConnection(HIVE_JDBC_URI, properties);
         } catch (SQLException | ClassNotFoundException e) {
             logger.error("Connection ERROR: ", e);
         }

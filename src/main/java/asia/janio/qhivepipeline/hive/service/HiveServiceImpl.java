@@ -3,14 +3,12 @@ package asia.janio.qhivepipeline.hive.service;
 import lombok.extern.log4j.Log4j2;
 import org.apache.hive.jdbc.HiveStatement;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.sql.DataSource;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,20 +17,17 @@ import java.util.List;
 @Service
 public class HiveServiceImpl implements HiveService {
 
-    private final JdbcTemplate hiveJdbcTemplate;
+    private final Connection hiveJdbcTemplate;
 
-    private final DataSource hiveDruidDataSource;
-
-    public HiveServiceImpl(@Qualifier("hiveJdbcTemplate") JdbcTemplate hiveJdbcTemplate, @Qualifier("hiveDruidDataSource") DataSource hiveDruidDataSource) {
+    public HiveServiceImpl(@Qualifier("hiveJdbcTemplate") Connection hiveJdbcTemplate) {
         this.hiveJdbcTemplate = hiveJdbcTemplate;
-        this.hiveDruidDataSource = hiveDruidDataSource;
     }
 
     @Override
     public Boolean select(String hql) {
         boolean ex;
         try {
-            HiveStatement st = (HiveStatement) hiveDruidDataSource.getConnection().createStatement();
+            HiveStatement st = (HiveStatement) hiveJdbcTemplate.createStatement();
             ex = st.execute(hql);
             for (String line: st.getQueryLog()) {
                 log.info(line);
@@ -48,7 +43,7 @@ public class HiveServiceImpl implements HiveService {
     public List<String> listAllTables() {
         List<String> result = new ArrayList<>();
         try {
-            Statement statement = hiveDruidDataSource.getConnection().createStatement();
+            HiveStatement statement = (HiveStatement) hiveJdbcTemplate.createStatement();
             String sql = "show tables";
             log.info("Running: " + sql);
             ResultSet resultSet = statement.executeQuery(sql);
@@ -69,7 +64,7 @@ public class HiveServiceImpl implements HiveService {
         }
         List<String> result = new ArrayList<>();
         try {
-            Statement statement = hiveDruidDataSource.getConnection().createStatement();
+            HiveStatement statement = (HiveStatement) hiveJdbcTemplate.createStatement();
             String sql = "describe " + tableName;
             log.info("Running" + sql);
             ResultSet resultSet = statement.executeQuery(sql);
@@ -90,7 +85,7 @@ public class HiveServiceImpl implements HiveService {
         }
         List<String> result = new ArrayList<>();
         try {
-            Statement statement = hiveDruidDataSource.getConnection().createStatement();
+            HiveStatement statement = (HiveStatement) hiveJdbcTemplate.createStatement();
             String sql = "select * from " + tableName;
             log.info("Running" + sql);
             ResultSet resultSet = statement.executeQuery(sql);

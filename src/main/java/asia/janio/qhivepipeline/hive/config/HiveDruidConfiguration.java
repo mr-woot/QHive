@@ -26,7 +26,8 @@ public class HiveDruidConfiguration {
 
     @Bean("hiveDruidDataSource")
     @Qualifier("hiveDruidDataSource")
-    public DataSource dataSource(){
+    public DataSource dataSource() {
+
         DruidDataSource datasource = new DruidDataSource();
 //        BasicDataSource datasource = new BasicDataSource();
 

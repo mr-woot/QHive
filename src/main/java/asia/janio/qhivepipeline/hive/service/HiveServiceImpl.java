@@ -17,19 +17,19 @@ import java.util.List;
 public class HiveServiceImpl implements HiveService {
 
     @Override
-    public Boolean select(String hql) {
-        boolean ex;
+    public ResultSet select(String hql) {
+        ResultSet rs;
         try {
             HiveStatement st = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
-            ex = st.execute(hql);
+            rs = st.executeQuery(hql);
             for (String line: st.getQueryLog()) {
                 log.info(line);
             }
-            log.info(ex);
+            log.info(rs);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return ex;
+        return rs;
     }
 
     @Override

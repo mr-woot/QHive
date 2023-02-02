@@ -22,7 +22,7 @@ public class HiveController {
         return ResponseEntity.status(HttpStatus.OK).body(hiveService.describeTable(tableName));
     }
 
-    @PostMapping("executeHql")
+    @PostMapping("/executeHql")
     public ResponseEntity<?> executeHql(@RequestBody CreateQueryPayload queryPayload) {
         hiveService.select(queryPayload.getQuery());
         return ResponseEntity.status(HttpStatus.CREATED).body(queryPayload);

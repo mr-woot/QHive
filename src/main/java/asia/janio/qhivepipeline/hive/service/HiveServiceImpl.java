@@ -1,5 +1,6 @@
 package asia.janio.qhivepipeline.hive.service;
 
+import asia.janio.qhivepipeline.hive.config.HiveConnection;
 import lombok.extern.log4j.Log4j2;
 import org.apache.hive.jdbc.HiveStatement;
 import org.springframework.stereotype.Service;
@@ -16,10 +17,10 @@ import java.util.List;
 @Service
 public class HiveServiceImpl implements HiveService {
 
-    private final Connection hiveConnection;
+    private Connection hiveConnection = null;
 
-    public HiveServiceImpl(Connection hiveConnection) {
-        this.hiveConnection = hiveConnection;
+    public HiveServiceImpl() {
+        this.hiveConnection = HiveConnection.getInstance().getConnection();
     }
 
     @Override

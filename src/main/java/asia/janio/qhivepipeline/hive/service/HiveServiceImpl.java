@@ -1,7 +1,7 @@
 package asia.janio.qhivepipeline.hive.service;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.hive.jdbc.HiveStatement;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -19,26 +19,40 @@ import java.util.List;
 @Service
 public class HiveServiceImpl implements HiveService {
 
-    @Autowired
-    @Qualifier("hiveJdbcTemplate")
-    private JdbcTemplate hiveJdbcTemplate;
+    private final JdbcTemplate hiveJdbcTemplate;
 
-    @Autowired
-    @Qualifier("hiveDruidDataSource")
-    private DataSource hiveDruidDataSource;
+    private final DataSource hiveDruidDataSource;
+
+    public HiveServiceImpl(@Qualifier("hiveJdbcTemplate") JdbcTemplate hiveJdbcTemplate, @Qualifier("hiveDruidDataSource") DataSource hiveDruidDataSource) {
+        this.hiveJdbcTemplate = hiveJdbcTemplate;
+        this.hiveDruidDataSource = hiveDruidDataSource;
+    }
 
     @Override
     public Object select(String hql) {
-        return hiveJdbcTemplate.queryForObject(hql, Object.class);
+        Object object = null;
+        try {
+            HiveStatement stmt = (HiveStatement) hiveDruidDataSource.getConnection().createStatement();
+            object = hiveJdbcTemplate.queryForObject(hql, Object.class);
+            for(String log: stmt.getQueryLog()) {
+                System.out.println("Log: " + log);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return object;
     }
 
     @Override
     public List<String> listAllTables() {
         List<String> result = new ArrayList<>();
         try {
-            Statement statement = hiveDruidDataSource.getConnection().createStatement();
+            HiveStatement statement = (HiveStatement)hiveDruidDataSource.getConnection().createStatement();
             String sql = "show tables";
             log.info("Running: " + sql);
+            for (String log: statement.getQueryLog()) {
+                System.out.println("Log: " + log);
+            }
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 result.add(resultSet.getString(1));

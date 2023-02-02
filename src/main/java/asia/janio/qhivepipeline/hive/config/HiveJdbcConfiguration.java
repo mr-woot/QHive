@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.sql.Connection;
-
 @Configuration
 public class HiveJdbcConfiguration {
 
@@ -15,10 +13,10 @@ public class HiveJdbcConfiguration {
 //        return new JdbcTemplate(dataSource);
 //    }
 
-    @Bean("hiveJdbcTemplate")
-    @Qualifier("hiveJdbcTemplate")
-    public Connection getTemplate() {
-        return HiveConnection.getInstance().getConnection();
+    @Bean("hiveConnection")
+    @Qualifier("hiveConnection")
+    public org.apache.hive.jdbc.HiveConnection getTemplate() {
+        return (org.apache.hive.jdbc.HiveConnection) HiveConnection.getInstance().getConnection();
     }
 
 }

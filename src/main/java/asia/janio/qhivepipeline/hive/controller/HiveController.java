@@ -35,12 +35,12 @@ public class HiveController {
         boolean res = kafkaProducer.sendMessage(queryPayload);
         if (res) {
 //        hiveService.select(queryPayload.getQuery());
-            return ResponseEntity.status(HttpStatus.CREATED).body(
-                    ApiResponse.builder()
-                        .data(queryPayload)
-                        .message("Query scheduled successfully")
-                        .error(null)
-                        .status(HttpStatus.CREATED)
+            return ResponseEntity.status(HttpStatus.CREATED).body("success");
+//                    ApiResponse.builder()
+//                        .data(queryPayload)
+//                        .message("Query scheduled successfully")
+//                        .error(null)
+//                        .status(HttpStatus.CREATED)
             );
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(

@@ -33,10 +33,6 @@ public class KafkaProducer {
                 .build();
 
         ListenableFuture<SendResult<String, CreateQueryPayload>> res = kafkaTemplate.send(message);
-        if (res.isDone()) {
-            return true;
-        } else {
-            return false;
-        }
+        return res.isDone();
     }
 }

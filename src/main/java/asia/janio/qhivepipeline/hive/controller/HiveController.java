@@ -5,6 +5,7 @@ import asia.janio.qhivepipeline.hive.service.HiveServiceImpl;
 import asia.janio.qhivepipeline.kafka.KafkaProducer;
 import asia.janio.qhivepipeline.metadata.entity.CreateQueryPayload;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class HiveController {
         return ResponseEntity.status(HttpStatus.OK).body(hiveService.describeTable(tableName));
     }
 
-    @PostMapping("/executeHql")
+    @PostMapping(value = "/executeHql", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> executeHql(@RequestBody CreateQueryPayload queryPayload) {
         boolean res = kafkaProducer.sendMessage(queryPayload);
         if (res) {

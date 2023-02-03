@@ -5,10 +5,12 @@ spring:
     bootstrap-servers: "b-2.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092,b-1.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092"
     consumer:
       group-id: "hive-janio-test"
+      bootstrap-servers: "b-2.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092,b-1.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092"
       auto-offset-reset: earliest
       key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
       value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
     producer:
+      bootstrap-servers: "b-2.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092,b-1.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092"
       compression-type: gzip
       key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
       value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"

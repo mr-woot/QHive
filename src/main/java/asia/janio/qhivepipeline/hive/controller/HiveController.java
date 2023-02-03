@@ -41,7 +41,7 @@ public class HiveController {
 //                        .message("Query scheduled successfully")
 //                        .error(null)
 //                        .status(HttpStatus.CREATED)
-            );
+//            );
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
                     ApiResponse.builder()

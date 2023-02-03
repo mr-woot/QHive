@@ -1,16 +1,24 @@
 package asia.janio.qhivepipeline.hive.controller;
 
+import asia.janio.qhivepipeline.common.ApiResponse;
 import asia.janio.qhivepipeline.hive.service.HiveServiceImpl;
+import asia.janio.qhivepipeline.kafka.KafkaProducer;
 import asia.janio.qhivepipeline.metadata.entity.CreateQueryPayload;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HiveController {
-    @Autowired
-    private HiveServiceImpl hiveService;
+
+    private final KafkaProducer kafkaProducer;
+
+    private final HiveServiceImpl hiveService;
+
+    public HiveController(HiveServiceImpl hiveService, KafkaProducer kafkaProducer) {
+        this.hiveService = hiveService;
+        this.kafkaProducer = kafkaProducer;
+    }
 
     @GetMapping("/show-tables")
     public ResponseEntity<?> showTables() {
@@ -24,7 +32,14 @@ public class HiveController {
 
     @PostMapping("/executeHql")
     public ResponseEntity<?> executeHql(@RequestBody CreateQueryPayload queryPayload) {
-        hiveService.select(queryPayload.getQuery());
-        return ResponseEntity.status(HttpStatus.CREATED).body(queryPayload);
+        kafkaProducer.sendMessage(queryPayload);
+//        hiveService.select(queryPayload.getQuery());
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                ApiResponse.builder()
+                        .data(queryPayload)
+                        .message("Query scheduled successfully")
+                        .error(null)
+                        .status(HttpStatus.CREATED)
+        );
     }
 }

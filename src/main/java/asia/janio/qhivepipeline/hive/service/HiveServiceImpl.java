@@ -21,6 +21,7 @@ public class HiveServiceImpl implements HiveService {
         ResultSet rs;
         try {
             HiveStatement st = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
+            log.info("Running: " + hql);
             rs = st.executeQuery(hql);
             for (String line: st.getQueryLog()) {
                 log.info(line);
@@ -59,7 +60,7 @@ public class HiveServiceImpl implements HiveService {
         try {
             HiveStatement statement = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
             String sql = "describe " + tableName;
-            log.info("Running" + sql);
+            log.info("Running: " + sql);
             ResultSet resultSet = statement.executeQuery(sql);
             while (resultSet.next()) {
                 result.add(resultSet.getString(1));
@@ -80,7 +81,7 @@ public class HiveServiceImpl implements HiveService {
         try {
             HiveStatement statement = (HiveStatement) HiveConnection.getInstance().getConnection().createStatement();
             String sql = "select * from " + tableName;
-            log.info("Running" + sql);
+            log.info("Running: " + sql);
             ResultSet resultSet = statement.executeQuery(sql);
             int columnCount = resultSet.getMetaData().getColumnCount();
             String str = null;

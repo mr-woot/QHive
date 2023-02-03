@@ -1,6 +1,20 @@
 server:
   port: 1234
 spring:
+  kafka:
+    bootstrap-servers: "b-2.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092,b-1.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092"
+    consumer:
+      group-id: "hive-janio-test"
+      auto-offset-reset: earliest
+      key-deserializer: "org.apache.kafka.common.serialization.StringDeserializer"
+      value-deserializer: "org.springframework.kafka.support.serializer.JsonDeserializer"
+    producer:
+      compression-type: gzip
+      key-serializer: "org.apache.kafka.common.serialization.StringSerializer"
+      value-serializer: "org.springframework.kafka.support.serializer.JsonSerializer"
+      batch-size: 32768
+    template:
+      default-topic: "hive-janio-test"
   datasource:
     hikari:
       connection-timeout: 30000

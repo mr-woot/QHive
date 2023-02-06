@@ -41,6 +41,7 @@ public class HiveController {
                         .message("Query scheduled successfully")
                         .error(null)
                         .status(HttpStatus.CREATED)
+                            .build()
             );
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
@@ -49,6 +50,7 @@ public class HiveController {
                         .message("Error scheduling the query")
                         .error("Error scheduling the query")
                         .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                .build()
             );
         }
     }

@@ -1,11 +1,9 @@
 package asia.janio.qhivepipeline.common;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
 import org.springframework.http.HttpStatus;
 
-@Data
-@AllArgsConstructor
+@Builder
 public class ApiResponse {
     private String message;
     private String error;

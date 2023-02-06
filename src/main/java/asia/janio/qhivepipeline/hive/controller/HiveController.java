@@ -1,5 +1,6 @@
 package asia.janio.qhivepipeline.hive.controller;
 
+import asia.janio.qhivepipeline.common.ApiResponse;
 import asia.janio.qhivepipeline.hive.service.HiveServiceImpl;
 import asia.janio.qhivepipeline.kafka.KafkaProducer;
 import asia.janio.qhivepipeline.metadata.entity.CreateQueryPayload;
@@ -34,22 +35,20 @@ public class HiveController {
     public ResponseEntity<?> executeHql(@RequestBody CreateQueryPayload queryPayload) {
         boolean res = kafkaProducer.sendMessage(queryPayload);
         if (res) {
-//        hiveService.select(queryPayload.getQuery());
-            return ResponseEntity.status(HttpStatus.CREATED).body("success");
-//                    ApiResponse.builder()
-//                        .data(queryPayload)
-//                        .message("Query scheduled successfully")
-//                        .error(null)
-//                        .status(HttpStatus.CREATED)
-//            );
+            return ResponseEntity.status(HttpStatus.CREATED).body(
+                    ApiResponse.builder()
+                        .data(queryPayload)
+                        .message("Query scheduled successfully")
+                        .error(null)
+                        .status(HttpStatus.CREATED)
+            );
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    "error"
-//                    new ApiResponse()
-//                        .data(null)
-//                        .message("Error scheduling the query")
-//                        .error("Error scheduling the query")
-//                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        ApiResponse.builder()
+                        .data(null)
+                        .message("Error scheduling the query")
+                        .error("Error scheduling the query")
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
             );
         }
     }

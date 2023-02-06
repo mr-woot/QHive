@@ -45,7 +45,7 @@ public class HiveController {
 //            );
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    ApiResponse.builder()
+                    new ApiResponse()
                         .data(null)
                         .message("Error scheduling the query")
                         .error("Error scheduling the query")

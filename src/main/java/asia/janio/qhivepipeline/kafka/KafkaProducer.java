@@ -32,7 +32,7 @@ public class KafkaProducer {
                 .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME)
                 .build();
 
-        ListenableFuture<SendResult<String, CreateQueryPayload>> res = kafkaTemplate.send(message);
-        return res.isDone();
+        kafkaTemplate.send(message);
+        return true;
     }
 }

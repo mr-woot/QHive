@@ -1,6 +1,5 @@
 package asia.janio.qhivepipeline.hive.controller;
 
-import asia.janio.qhivepipeline.common.ApiResponse;
 import asia.janio.qhivepipeline.hive.service.HiveServiceImpl;
 import asia.janio.qhivepipeline.kafka.KafkaProducer;
 import asia.janio.qhivepipeline.metadata.entity.CreateQueryPayload;
@@ -45,11 +44,12 @@ public class HiveController {
 //            );
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-                    new ApiResponse()
-                        .data(null)
-                        .message("Error scheduling the query")
-                        .error("Error scheduling the query")
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    "error"
+//                    new ApiResponse()
+//                        .data(null)
+//                        .message("Error scheduling the query")
+//                        .error("Error scheduling the query")
+//                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
             );
         }
     }

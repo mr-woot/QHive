@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
-@Table(name = "metadata", schema = "qhive")
+@Table(name = "metadata")
 @Getter
 @Setter
 @NoArgsConstructor

@@ -25,13 +25,11 @@ import javax.sql.DataSource;
 )
 public class MetadataDataSourceConfiguration {
 
-    @Primary
     @Bean(name = "metadataDataSourceProperties")
     public DataSourceProperties metadataDataSourceProperties() {
         return new DataSourceProperties();
     }
 
-    @Primary
     @Bean(name = "metadataDataSource")
     public DataSource metadataDataSource(
             @Qualifier("metadataDataSourceProperties") DataSourceProperties metadataDataSourceProperties) {
@@ -41,7 +39,6 @@ public class MetadataDataSourceConfiguration {
                 .build();
     }
 
-    @Primary
     @Bean(name = "metadataEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean metadataEntityManagerFactory(
             EntityManagerFactoryBuilder metadataEntityManagerFactoryBuilder,
@@ -53,7 +50,6 @@ public class MetadataDataSourceConfiguration {
                 .build();
     }
 
-    @Primary
     @Bean(name = "metadataTransactionManager")
     public PlatformTransactionManager metadataTransactionManager(
             @Qualifier("metadataEntityManagerFactory") EntityManagerFactory metadataEntityManagerFactory) {

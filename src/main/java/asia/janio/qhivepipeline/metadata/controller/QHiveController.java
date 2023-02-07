@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("/api/v1")
+@RestController
 public class QHiveController {
 
     private final MetadataService metadataService;
@@ -17,12 +17,12 @@ public class QHiveController {
         this.metadataService = metadataService;
     }
 
-    @PostMapping
+    @PostMapping("/create-query")
     public ResponseEntity<?> createQuery(@RequestBody CreateQueryPayload queryPayload) {
         return metadataService.createQuery(queryPayload);
     }
 
-    @GetMapping
+    @GetMapping("/list-queries")
     public ResponseEntity<?> listQueries() {
         return metadataService.listQueries();
     }

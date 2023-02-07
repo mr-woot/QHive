@@ -18,7 +18,9 @@ public class QHiveController {
         this.metadataService = metadataService;
     }
 
-    @PostMapping(value = "/create-query", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path = "/create-query",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createQuery(@RequestBody CreateQueryPayload queryPayload) {
         return metadataService.createQuery(queryPayload);
     }

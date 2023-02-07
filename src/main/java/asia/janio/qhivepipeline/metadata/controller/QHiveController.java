@@ -2,6 +2,7 @@ package asia.janio.qhivepipeline.metadata.controller;
 
 import asia.janio.qhivepipeline.metadata.entity.CreateQueryPayload;
 import asia.janio.qhivepipeline.metadata.service.MetadataService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,7 +18,7 @@ public class QHiveController {
         this.metadataService = metadataService;
     }
 
-    @PostMapping("/create-query")
+    @PostMapping(value = "/create-query", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createQuery(@RequestBody CreateQueryPayload queryPayload) {
         return metadataService.createQuery(queryPayload);
     }

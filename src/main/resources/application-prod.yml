@@ -1,6 +1,12 @@
 server:
   port: 1234
 spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB53Dialect
   kafka:
     bootstrap-servers: "b-2.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092,b-1.data-pipeline.9pjnsu.c3.kafka.ap-southeast-1.amazonaws.com:9092"
     consumer:
@@ -18,14 +24,12 @@ spring:
     template:
       default-topic: "hive-janio-test"
   datasource:
+    url: "jdbc:mysql://172.31.10.79:3306/qhive"
+    username: "qhive"
+    password: "qhive@123@"
     hikari:
       connection-timeout: 30000
       maximum-pool-size: 10
-    metadata:
-      config:
-        url: "jdbc:mysql://172.31.10.79:3306/qhive"
-        username: "qhive"
-        password: "qhive@123@"
     hive:
       url: "jdbc:hive2://ip-172-31-0-55.ap-southeast-1.compute.internal:2181,ip-172-31-10-50.ap-southeast-1.compute.internal:2181,ip-172-31-10-79.ap-southeast-1.compute.internal:2181/;serviceDiscoveryMode=zooKeeper;zooKeeperNamespace=hiveserver2"
       username: "hive"
@@ -46,9 +50,3 @@ spring:
       poolPreparedStatements: true
       maxOpenPreparedStatements: 20
       filters: stat
-  jpa:
-    hibernate:
-      ddl-auto: "update"
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MariaDB53Dialect

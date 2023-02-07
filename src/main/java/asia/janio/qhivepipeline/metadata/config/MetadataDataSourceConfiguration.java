@@ -3,7 +3,6 @@ package asia.janio.qhivepipeline.metadata.config;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,14 +27,12 @@ public class MetadataDataSourceConfiguration {
 
     @Primary
     @Bean(name = "metadataDataSourceProperties")
-    @ConfigurationProperties("spring.datasource.metadata")
     public DataSourceProperties metadataDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Primary
     @Bean(name = "metadataDataSource")
-    @ConfigurationProperties("spring.datasource.metadata.config")
     public DataSource metadataDataSource(
             @Qualifier("metadataDataSourceProperties") DataSourceProperties metadataDataSourceProperties) {
         return metadataDataSourceProperties

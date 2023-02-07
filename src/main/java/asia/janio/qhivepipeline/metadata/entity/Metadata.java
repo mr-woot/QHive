@@ -28,6 +28,9 @@ public class Metadata implements Serializable {
     @Column(name = "query", nullable = false, columnDefinition = "TEXT")
     private String query;
 
+    @Column(name = "description")
+    private String description;
+
     @Column(name = "scheduleFrequency")
     private String scheduleFrequency;
 
@@ -51,9 +54,11 @@ public class Metadata implements Serializable {
         this.updatedAt = Instant.now().toEpochMilli();
     }
 
-    public Metadata(String name, String query, String scheduleFrequency) {
+    public Metadata(String name, String query, String description, String scheduleFrequency, String createdBy) {
         this.name = name;
         this.query = query;
+        this.description = description;
         this.scheduleFrequency = scheduleFrequency;
+        this.createdBy = createdBy;
     }
 }

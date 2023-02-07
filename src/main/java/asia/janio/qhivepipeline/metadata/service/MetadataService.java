@@ -22,10 +22,12 @@ public class MetadataService {
     }
 
     public ResponseEntity<Metadata> createQuery(CreateQueryPayload queryPayload) {
-        String query = queryPayload.getQuery();
         String name = queryPayload.getName();
+        String query = queryPayload.getQuery();
+        String description = queryPayload.getDescription();
+        String createdBy = queryPayload.getCreatedBy();
         String scheduleFrequency = queryPayload.getScheduleFrequency();
-        Metadata metadata = new Metadata(name, query, scheduleFrequency);
+        Metadata metadata = new Metadata(name, query, description, createdBy, scheduleFrequency);
         metadataRepository.save(metadata);
         return ResponseEntity.status(HttpStatus.CREATED).body(metadata);
     }

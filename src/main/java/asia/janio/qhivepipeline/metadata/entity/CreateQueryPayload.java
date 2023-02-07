@@ -9,4 +9,5 @@ public class CreateQueryPayload {
     private String query;
     private String description;
     private String scheduleFrequency;
+    private String createdBy;
 }
